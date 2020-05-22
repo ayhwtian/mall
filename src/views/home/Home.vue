@@ -9,11 +9,14 @@
 <script>
   import NavBar from "components/common/navbar/NavBar"
   import {getHomeMutidata} from "@/network/home";
+  import {Swiper,SwiperItem} from "components/common/swiper"
 
   export default {
     name: 'Home',
     components: {
-      NavBar
+      NavBar,
+      Swiper,
+      SwiperItem
     },
     data() {
       return {
