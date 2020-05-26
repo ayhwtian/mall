@@ -8,7 +8,7 @@ module.exports = {
             'network': '@/network',
             'views': '@/views'
           }
-        }
+        },  
     },
   //pwa修改小图标生效
   pwa: {
