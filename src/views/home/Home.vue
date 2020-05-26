@@ -5,6 +5,7 @@
     </nav-bar>
     <home-swiper :banners="banners"></home-swiper>
     <recomment-view :recommends="recommends"></recomment-view>
+    <feaure-view />
   </div>
 </template>
 
@@ -12,6 +13,7 @@
   import NavBar from "components/common/navbar/NavBar"
   import HomeSwiper from "./childComps/HomeSwiper";
   import RecommendView from "./childComps/RecommendView";
+  import FeaureView from "@/views/home/childComps/FeaureView";
 
   import {getHomeMutidata} from "@/network/home";
 
@@ -20,7 +22,8 @@
     components: {
       NavBar,
       HomeSwiper,
-      RecommendView
+      RecommendView,
+      FeaureView
     },
     data() {
       return {
