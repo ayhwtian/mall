@@ -66,7 +66,7 @@
   import NavBar from "components/common/navbar/NavBar"
   import TabControl from 'components/content/tabContole/TabControl.vue'
 
-  import {getHomeMutidata} from "@/network/home";
+  import {getHomeMutidata, getHomeGoods} from "@/network/home";
 
 
   export default {
@@ -91,12 +91,13 @@
     },
     created() {
       //1.请求多个数据
-      getHomeMutidata()
-        .then( res => {
+      getHomeMutidata().then( res => {
           console.log(res);
           this.banners = res.data.banner.list;
           this.recommends = res.data.recommend.list
         })
+
+      //2.请求商品
     },
 
 
