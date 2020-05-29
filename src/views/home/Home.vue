@@ -90,16 +90,29 @@
       }
     },
     created() {
-      //1.请求多个数据
-      getHomeMutidata().then( res => {
+      this.getHomeMutidata()
+      this.getHomeGoods('pop')
+      this.getHomeGoods('new')
+      this.getHomeGoods('sell')
+    },
+    methods: {
+      getHomeMutidata() {
+        //1.请求多个数据
+        getHomeMutidata().then( res => {
           console.log(res);
           this.banners = res.data.banner.list;
           this.recommends = res.data.recommend.list
         })
-
-      //2.请求商品
-    },
-
+      },
+      getHomeGoods(type) {
+        //2.请求商品
+        const page = this.goods[type].page + 1
+        getHomeGoods(type, page).then(res => {
+          this.goods[type].list.push(...res.data.list)
+          this.goods[type].page += 1
+        })
+      }
+    }
 
   }
 </script>
