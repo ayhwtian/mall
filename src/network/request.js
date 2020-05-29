@@ -19,6 +19,7 @@ export function request(config) {
 
   // 2.2.响应拦截
   instance.interceptors.response.use(res => {
+    //拦截后必须返回，要不第三部真正网络请求就没有res.data了
     return res.data
   }, err => {
     console.log(err);

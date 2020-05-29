@@ -6,7 +6,10 @@
     <home-swiper  :banners="banners"></home-swiper>
     <recommend-view :recommends="recommends"></recommend-view>
     <feaure-view />
-    <tab-control :titles="['流行','新款','精选']" class="tab-control"/>
+    <tab-control :titles="['流行','新款','精选']"
+                 class="tab-control"
+                 @tabClick="tabClick"/>
+    <goods-list :goods="showGoods"/>
 
     <div>
       <ul>
@@ -65,8 +68,10 @@
 
   import NavBar from "components/common/navbar/NavBar"
   import TabControl from 'components/content/tabContole/TabControl.vue'
+  import GoodsListItem from 'components/content/goodslist/GoodsList'
 
   import {getHomeMutidata, getHomeGoods} from "@/network/home";
+  import GoodsList from "@/components/content/goods/GoodsList";
 
 
   export default {
@@ -76,7 +81,8 @@
       HomeSwiper,
       RecommendView,
       FeaureView,
-      TabControl
+      TabControl,
+      GoodsList
     },
     data() {
       return {
@@ -86,7 +92,13 @@
           'pop': {page:0, list: []},
           'new': {page:0, list: []},
           'sell': {page:0, list: []},
-        }
+        },
+        currentType: 'pop'
+      }
+    },
+    computed: {
+      showGoods() {
+        return this.goods[this.currentType].list
       }
     },
     created() {
@@ -95,10 +107,30 @@
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
     },
-    methods: {
+    methods:{
+      /**
+       * 事件监听相关方法
+       */
+      tabClick(index) {
+        switch (index) {
+          case 0:
+            this.currentType = 'pop'
+            break
+          case 1:
+            this.currentType = 'new'
+            break
+          case 2:
+            this.currentType = 'sell'
+            break
+        }
+      },
+
+      /**
+       * 网络请求相关的方法
+       */
       getHomeMutidata() {
         //1.请求多个数据
-        getHomeMutidata().then( res => {
+        getHomeMutidata().then(res => {
           console.log(res);
           this.banners = res.data.banner.list;
           this.recommends = res.data.recommend.list
@@ -125,5 +157,6 @@
   .tab-control {
     position: sticky;
     top: 0px;
+    z-index: 9;
   }
 </style>
